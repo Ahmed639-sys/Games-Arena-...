@@ -1,0 +1,409 @@
+/* =========================================================
+   GameArena - Assignment 6
+   ========================================================= */
+
+:root {
+  --lime: #c8ff1a;
+  --lime-dark: #aee600;
+  --green: #12e07a;
+  --bg: #0a0d14;
+  --bg-2: #0f131c;
+  --card: #18181b;
+  --card-border: #26262b;
+  --slate: #1e293b;
+  --slate-2: #334155;
+  --text-muted: #9aa3b2;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-head: "Unbounded", "Space Grotesk", sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: #fff;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 700; }
+a { text-decoration: none; }
+.text-lime { color: var(--lime) !important; }
+
+/* ---------- Buttons ---------- */
+.ga-btn-lime {
+  background: var(--lime);
+  color: #0a0d14;
+  font-weight: 700;
+  border: 2px solid var(--lime);
+  border-radius: 10px;
+  transition: .25s;
+}
+.ga-btn-lime:hover { background: var(--lime-dark); border-color: var(--lime-dark); color: #000; }
+
+.ga-btn-outline {
+  background: transparent;
+  color: var(--lime);
+  font-weight: 700;
+  border: 2px solid var(--lime);
+  border-radius: 10px;
+  transition: .25s;
+}
+.ga-btn-outline:hover { background: var(--lime); color: #000; }
+
+.ga-btn-lg { padding: 16px 28px; }
+
+.ga-circle-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #3a4150;
+  color: #fff;
+  font-size: 1.2rem;
+  display: grid; place-items: center;
+  transition: .25s;
+}
+.ga-circle-btn:hover { border-color: var(--lime); color: var(--lime); }
+
+/* ---------- Navbar ---------- */
+.ga-navbar {
+  background: rgba(10, 13, 20, .92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1b2030;
+  padding: 14px 0;
+}
+.ga-brand { color: var(--lime); font-weight: 700; font-size: 1.15rem; }
+.ga-brand i { font-size: 1.5rem; }
+.ga-navbar .nav-link {
+  color: #fff;
+  font-weight: 500;
+  padding: .5rem .8rem;
+  transition: color .2s;
+}
+.ga-navbar .nav-link:hover,
+.ga-navbar .nav-link.active { color: var(--lime); }
+
+/* ---------- Sections ---------- */
+.ga-section { padding: 90px 0; }
+.ga-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  color: var(--lime);
+  font-weight: 700;
+  letter-spacing: 3px;
+  font-size: .95rem;
+  margin-bottom: 14px;
+}
+.ga-eyebrow::before,
+.ga-eyebrow::after {
+  content: ""; width: 56px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--lime));
+}
+.ga-eyebrow::after { transform: scaleX(-1); }
+.ga-title { font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.25; }
+.ga-sub { color: var(--text-muted); font-size: 1.1rem; }
+
+/* ---------- Hero ---------- */
+.ga-hero {
+  min-height: 100vh;
+  padding: 120px 0 80px;
+  background:
+    linear-gradient(rgba(10,13,20,.82), rgba(10,13,20,.88)),
+    url("images/hero-bg.jpg") center / cover no-repeat;
+}
+.ga-hero-title {
+  font-size: clamp(2.4rem, 5.2vw, 4rem);
+  font-weight: 800;
+  line-height: 1.12;
+}
+.ga-hero-text { color: #d3d7df; font-size: 1.05rem; max-width: 540px; line-height: 1.7; }
+
+.ga-hero-img-border {
+  padding: 4px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--lime), var(--green));
+}
+.ga-hero-img-border img { border-radius: 17px; display: block; width: 100%; }
+
+.ga-stat-card {
+  position: absolute;
+  left: -40px; bottom: -22px;
+  background: #0d1118;
+  border: 1px solid #262c3a;
+  border-radius: 12px;
+  padding: 18px 24px;
+}
+
+/* ---------- Games carousel ---------- */
+.ga-game {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color .5s;
+}
+.ga-game img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ga-game-overlay {
+  position: absolute; inset: 0;
+  padding: 16px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  background: linear-gradient(to top, rgba(200,255,26,.95) 0%, rgba(200,255,26,.6) 45%, rgba(200,255,26,.2) 100%);
+  opacity: 0;
+  transition: opacity .5s;
+}
+.ga-game:hover { border-color: var(--lime); }
+.ga-game:hover .ga-game-overlay { opacity: 1; }
+
+.ga-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+.ga-tags span {
+  background: rgba(10,13,20,.7);
+  color: #fff;
+  font-size: .7rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.ga-tags i { color: var(--lime); }
+.ga-game-overlay h3 { color: #0a0d14; font-size: 1rem; margin: 0; }
+
+/* ---------- Services ---------- */
+.ga-service {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 20px;
+  transition: border-color .3s;
+}
+.ga-service h3 { font-size: 1.05rem; margin: 18px 0 0; }
+.ga-service-icon {
+  width: 60px; height: 60px;
+  border-radius: 12px;
+  background: #1c2536;
+  color: var(--lime);
+  font-size: 1.5rem;
+  display: grid; place-items: center;
+  transition: .3s;
+}
+/* lime corners on hover */
+.ga-service::before,
+.ga-service::after {
+  content: ""; position: absolute;
+  width: 24px; height: 24px;
+  background: var(--lime);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.ga-service::before { top: 12px; left: 12px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+.ga-service::after { bottom: 12px; right: 12px; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.ga-service:hover { border-color: var(--lime); }
+.ga-service:hover::before,
+.ga-service:hover::after { opacity: 1; }
+.ga-service:hover .ga-service-icon { background: var(--lime); color: #0a0d14; }
+
+.ga-service-img {
+  aspect-ratio: 1 / 1;
+  background: var(--lime);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.ga-service-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- Logos marquee ---------- */
+.ga-logos { position: relative; padding: 70px 0 90px; margin-top: 50px; }
+.ga-glow-line {
+  width: min(560px, 80%);
+  height: 3px;
+  margin: 0 auto 50px;
+  background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  box-shadow: 0 0 18px rgba(200,255,26,.6);
+  border-radius: 3px;
+}
+.ga-logos::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 55%;
+  width: 90%; height: 260px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(200,255,26,.55) 0%, rgba(200,255,26,.2) 45%, transparent 70%);
+  filter: blur(20px);
+  z-index: 0;
+  pointer-events: none;
+}
+.ga-marquee {
+  position: relative; z-index: 1;
+  overflow: hidden;
+  margin-bottom: 16px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.ga-marquee-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+}
+.ga-marquee-track img {
+  width: 90px; height: 90px;
+  border-radius: 14px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.ga-left  { animation: marquee-left 35s linear infinite; }
+.ga-right { animation: marquee-right 35s linear infinite; }
+
+@keyframes marquee-left  { from { transform: translateX(0); }    to { transform: translateX(calc(-50% - 8px)); } }
+@keyframes marquee-right { from { transform: translateX(calc(-50% - 8px)); } to { transform: translateX(0); } }
+
+/* ---------- Team (BONUS: backdrop-filter) ---------- */
+.ga-member {
+  position: relative;
+  aspect-ratio: 1 / 1.1;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--card);
+}
+.ga-member img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* The image itself is in color. This layer sits on top and applies a
+   grayscale filter to whatever is BEHIND it (backdrop-filter).
+   On hover we remove the filter, so the color shows through. */
+.ga-gray {
+  position: absolute; inset: 0;
+  -webkit-backdrop-filter: grayscale(1);
+          backdrop-filter: grayscale(1);
+  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,0) 55%);
+  transition: backdrop-filter .4s ease, -webkit-backdrop-filter .4s ease;
+}
+.ga-member:hover .ga-gray {
+  -webkit-backdrop-filter: grayscale(0);
+          backdrop-filter: grayscale(0);
+}
+
+.ga-member-info {
+  position: absolute; left: 22px; bottom: 18px; right: 60px;
+  z-index: 2;
+}
+.ga-member-info h3 { font-size: 1.05rem; margin: 0 0 6px; }
+.ga-member-info p { margin: 0; font-size: .85rem; color: #e5e7eb; transition: color .3s; }
+.ga-member-info small { font-size: .72rem; color: #9ca3af; }
+
+.ga-nick {
+  position: absolute; right: 14px; bottom: 18px;
+  z-index: 2;
+  writing-mode: vertical-rl;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: 1px;
+  color: #fff;
+  transition: color .3s;
+}
+.ga-member:hover .ga-nick,
+.ga-member:hover .ga-member-info p { color: var(--lime); }
+
+/* ---------- Contact ---------- */
+.ga-contact { background: linear-gradient(180deg, var(--bg) 0%, #0d1424 100%); }
+
+.ga-info-card {
+  display: flex; gap: 20px; align-items: flex-start;
+  background: var(--slate);
+  border-radius: 20px;
+  padding: 30px;
+  min-height: 140px;
+  margin-bottom: 28px;
+}
+.ga-info-icon {
+  flex: 0 0 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: #0a0d14;
+  font-size: 1.3rem;
+  display: grid; place-items: center;
+}
+.ga-info-card h3 { font-size: 1.1rem; margin: 4px 0 6px; }
+.ga-info-card p { margin: 0; color: var(--text-muted); }
+
+.ga-community {
+  background: linear-gradient(90deg, var(--lime), var(--green));
+  color: #0a0d14;
+  border-radius: 20px;
+  padding: 30px;
+}
+.ga-community h3 { font-size: 1.25rem; }
+.ga-community p { margin-bottom: 20px; }
+.ga-community a {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: #0a0d14;
+  color: var(--lime);
+  display: grid; place-items: center;
+  font-size: 1.1rem;
+  transition: transform .2s;
+}
+.ga-community a:hover { transform: translateY(-3px); }
+
+.ga-form {
+  background: var(--slate);
+  border-radius: 20px;
+  padding: 32px;
+}
+.ga-form h3 { font-size: 1.4rem; margin-bottom: 24px; }
+.ga-form .form-label { font-size: .85rem; font-weight: 700; color: #e2e8f0; margin-bottom: 6px; }
+.ga-form .form-control,
+.ga-form .form-select {
+  background-color: var(--slate-2);
+  border: 1px solid #475569;
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.ga-form .form-control::placeholder { color: #94a3b8; }
+.ga-form .form-control:focus,
+.ga-form .form-select:focus {
+  background-color: var(--slate-2);
+  color: #fff;
+  border-color: var(--lime);
+  box-shadow: 0 0 0 .2rem rgba(200,255,26,.2);
+}
+.ga-form .form-check-label { color: #cbd5e1; font-size: .85rem; }
+.ga-form .form-check-input { background-color: #fff; border-radius: 4px; }
+.ga-form .form-check-input:checked { background-color: var(--lime); border-color: var(--lime); }
+.ga-send { padding: 14px; font-size: 1.05rem; }
+.ga-hr { border-color: #475569; opacity: .6; margin: 28px 0 22px; }
+.ga-big { color: var(--lime); font-size: 1.6rem; font-family: var(--font-head); }
+.ga-form small { color: var(--text-muted); }
+
+/* ---------- Footer ---------- */
+.ga-footer { background: #000; padding: 70px 0 0; }
+.ga-footer p { color: var(--text-muted); max-width: 280px; }
+.ga-footer h4 { font-size: 1.05rem; margin-bottom: 20px; }
+.ga-links li { margin-bottom: 14px; }
+.ga-links a,
+.ga-copy a { color: var(--text-muted); transition: color .2s; }
+.ga-links a:hover,
+.ga-copy a:hover { color: var(--lime); }
+.ga-social a { color: var(--text-muted); font-size: 1.1rem; transition: color .2s; }
+.ga-social a:hover { color: var(--lime); }
+.ga-copy { color: var(--text-muted); font-size: .9rem; }
+.ga-footer .ga-hr { border-color: #1f2430; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  .ga-navbar .navbar-collapse { padding: 16px 0; }
+  .ga-hero { text-align: center; }
+  .ga-hero-text { margin-inline: auto; }
+  .ga-hero .d-flex { justify-content: center; }
+  .ga-stat-card { left: 10px; }
+  .ga-section { padding: 70px 0; }
+}
+@media (max-width: 575.98px) {
+  .ga-service h3 { font-size: .85rem; }
+  .ga-service-icon { width: 48px; height: 48px; font-size: 1.2rem; }
+  .ga-member-info h3 { font-size: .85rem; }
+  .ga-member-info p { font-size: .72rem; }
+  .ga-marquee-track img { width: 70px; height: 70px; }
+}
